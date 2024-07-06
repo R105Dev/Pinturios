@@ -8,8 +8,8 @@ const init = () => {
 
     const canvas = document.querySelector('#drawing');
     const context = canvas.getContext('2d');
-    const canvasWidth = 800;
-    const canvasHeight = 700;
+    const canvasWidth = 600;
+    const canvasHeight = 600;
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
@@ -22,6 +22,7 @@ const init = () => {
     }
 
     const socket = io();
+    
 
     let currentColor = 'red'; // Color por defecto
 
@@ -69,5 +70,48 @@ const init = () => {
 
     mainLoop();
 };
+
+const socket = io();
+
+function createOrJoinRoom() {
+    const roomNumber = document.getElementById('roomNumber').value;
+    const nickname = document.getElementById('nickname').value;
+    
+    socket.emit('createRoom', { roomNumber, nickname });
+    
+    socket.on('roomParticipants', participants => {
+        const roomParticipantsDiv = document.getElementById('roomParticipants');
+        roomParticipantsDiv.innerHTML = `<h3>Participantes en Sala ${roomNumber}</h3>`;
+        participants.forEach(participant => {
+            roomParticipantsDiv.innerHTML += `<p>${participant.nickname}</p>`;
+        });
+        document.getElementById('roomForm').style.display = 'none';
+        document.getElementById('chatBox').style.display = 'flex';
+        document.getElementById('currentRoom').textContent = roomNumber;
+    });
+    
+    socket.on('receiveMessage', data => {
+        const messagesDiv = document.getElementById('messages');
+        messagesDiv.innerHTML += `<p><strong>${data.nickname}:</strong> ${data.message}</p>`;
+    });
+}
+
+function sendMessage() {
+    const roomNumber = document.getElementById('currentRoom').textContent;
+    const message = document.getElementById('message').value;
+    
+    socket.emit('sendMessage', { roomNumber, message });
+    
+    const messagesDiv = document.getElementById('messages');
+    messagesDiv.innerHTML += `<p><strong>You:</strong> ${message}</p>`;
+    document.getElementById('message').value = '';
+}
+
+const botonEnviar = document.querySelector("#sendMessage")
+
+botonEnviar.addEventListener("submit", event => {
+    event.preventDefault()
+    sendMessage()
+})
 
 document.addEventListener('DOMContentLoaded', init);

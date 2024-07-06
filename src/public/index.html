@@ -10,9 +10,16 @@
     <header>
         <h1>Pinturios</h1>
     </header>
-    <main>
+    <div id="roomForm">
+        <label for="roomNumber">Número de Sala:</label>
+        <input type="text" id="roomNumber" required>
+        <label for="nickname">Nickname:</label>
+        <input type="text" id="nickname" required>
+        <button onclick="createOrJoinRoom()">Crear/Unirse a Sala</button>
+    </div>
+    <main id="chatBox" style="display: none;">
         <div id="players">
-            <p>R105</p>
+            <div id="roomParticipants"></div>
             <div id="color-buttons">
                 <div class="color-button" data-color="red" style="background-color: red;"></div>
                 <div class="color-button" data-color="blue" style="background-color: blue;"></div>
@@ -26,11 +33,12 @@
         </div>
         <canvas id="drawing"></canvas>
         <div id="chat">
-            <div>
-                <p>hola</p>
-                <p>holo</p>
-            </div>
-            <input type="text" name="" id="">
+            <h2>Chat en Sala <span id="currentRoom"></span></h2>
+            <div id="messages"></div>
+            <form action="submit" id="sendMessage">
+                <input type="text" id="message">
+                <!-- <button onclick="sendMessage()">Enviar</button> -->
+            </form>
         </div>
     </main>
 </body>

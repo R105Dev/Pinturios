@@ -11,17 +11,39 @@ header {
     text-align: center;
 }
 
-main {
-    justify-content: center;
+#roomForm {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+#roomForm input {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 12px;
+
+}
+
+#roomForm button {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#chatBox {
+    justify-content: center;
 }
 
 #chat {
     padding: 20px;
     border-radius: 20px;
     border: 2px solid white;
-    width: 400px;
-    height: 700px;
+    width: 350px;
+    height: 600px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -31,12 +53,15 @@ main {
     border-radius: 20px;
     border: 2px solid white;
     width: 250px;
-    height: 700px;
+    height: 600px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-input {
+#message {
+    border-radius: 10px;
+    border: 1px solid white;
+    width: 100%;
     padding: 10px;
     font-size: 18px;
 }
@@ -44,7 +69,7 @@ input {
 canvas {
     border-radius: 20px;
     border: 2px solid white;
-    display: block;
+    /* display: block; */
 }
 
 .color-button {
